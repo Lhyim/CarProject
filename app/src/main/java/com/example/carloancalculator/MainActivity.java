@@ -29,19 +29,16 @@ public class MainActivity extends AppCompatActivity {
         EditInterest = findViewById(R.id.EditInterest);
         EditLength = findViewById(R.id.EditLength);
         MonthView = findViewById(R.id.MonthView);
-        ToggleButton = findViewById(R.id.toggleButton;
-
-
-
+        ToggleButton = findViewById(R.id.ToggleButton;
     }
     private void initToggleButton() {
-        ToggleButton.setOnClickListener(new View.OnClickListener() {
+        ToggleButton.(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    // The toggle is enabled
+            public void onClick(View view) {
+                if () {
+                    // toggle on
                 } else {
-                    // The toggle is disabled
+                    // toggle off
                 }
             }
             });
