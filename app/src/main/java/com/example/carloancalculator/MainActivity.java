@@ -1,79 +1,104 @@
 package com.example.carloancalculator;
 
+import static java.lang.Math.pow;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+import java.lang.Math;
 
 public class MainActivity extends AppCompatActivity {
+    private TextView loanOrLease;
+    private TextView editStatement;
+    private EditText editCarPrice;
+    private EditText editPayment;
+    private EditText editRate;
+    private Button buttonCalculate;
+    private ToggleButton toggleButton1;
 
-    private EditText EditPrice;
-    private EditText EditPayment;
-    private EditText EditInterest;
-    private EditText EditLength;
-    private Button button;
-    private ToggleButton ToggleButton;
-    private TextView MonthView;
 
-
-    private void setForEditing(boolean enabled) {
-        @Override
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        EditPrice = findViewById(R.id.EditPrice);
-        button = findViewById(R.id.button);
-        EditPayment = findViewById(R.id.EditPayment);
-        EditInterest = findViewById(R.id.EditInterest);
-        EditLength = findViewById(R.id.EditLength);
-        MonthView = findViewById(R.id.MonthView);
-        ToggleButton = findViewById(R.id.ToggleButton);
+        initToggleButton1();
 
-        EditPrice.setEnabled(enabled);
-        EditPayment.setEnabled(enabled);
-        EditInterest.setEnabled(enabled);
-        EditLength.setEnabled(enabled);
-        MonthView.setEnabled(enabled);
+        editCarPrice = findViewById(R.id.editcarPrice);
+        editPayment = findViewById(R.id.editPayment);
+        editStatement = findViewById(R.id.editStatement);
+        editRate = findViewById(R.id.editRate);
+        toggleButton1 = findViewById(R.id.toggleButton1);
+        toggleButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(toggleButton1.isChecked()){
+                    double payment = Double.parseDouble(editPayment.getText().toString());
+                    double mr = ( Double.parseDouble(editRate.getText().toString())/100 )/12; //get input from user
+                    double price = Double.parseDouble((editCarPrice.getText().toString()))/3;
+                    double L = price - payment;
+                    int n = 36;
+                    double p= mr*L/(1-Math.pow((1+mr), -n));
+                    //double p2 = Math.round(( p * 100.0) /100 );
+                    editStatement.setText("Your Total Monthly Payment: " + p);
 
-        int MR = Integer.parseInt(EditInterest.getText().toString())/12;
-        int n = Integer.parseInt(EditLength.getText().toString());
-        int L = Integer.parseInt(EditPrice.getText().toString());
+                }
+                else{
+                    buttonCalculate.getText();
 
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) { setForEditing(ToggleButton.isChecked());
-                if (ToggleButton.isChecked()) {
-                            MonthView.setText("Your monthly payment is" + (MR * L / (1 - (1 + MR) ^ -n)));
-                } else {
-                            MonthView.setText("Your Monthly Payment is" + (MR * (L/3)/ (1 - (1 + MR) ^ -36)));
-                        }
+
+
+                }
+
             }
         });
 
-    }}
 
 
 
 
+        buttonCalculate = findViewById(R.id.buttonCalculate);
+        buttonCalculate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
 
-    //private void initToggleButton() {
-        //ToggleButton.setOnClickListener(new View.OnClickListener() {
-           // @Override
-            //public void onClick(View view) { setForEditing(ToggleButton.isChecked());
-                //if (ToggleButton.isChecked()) {
-                    //button.setOnClickListener(new View.OnClickListener() {
-                        //@Override
-                        //public void onClick(View view) {
-                            //MonthView.setText("Your monthly payment is" + (MR * L / (1 - (1 + MR) ^ -n)));
-                //} else {
-                    //button.setOnClickListener(new View.OnClickListener() {
-                        //@Override
-                        //public void onClick(View view) {
-                            //MonthView.setText("Your Monthly Payment is" + (MR * (L/3)/ (1 - (1 + MR) ^ -36)));
-
+                double mr = ( Double.parseDouble(editRate.getText().toString())/100 )/12; //get input from user
+                double price= Double.parseDouble(editCarPrice.getText().toString());
+                double payment = Double.parseDouble(editPayment.getText().toString());
+                double L = price - payment;
+                int n = 36;
+                double p= mr*L/(1-Math.pow((1+mr), -n));
+                //double p2 = Math.round(( p * 100.0) /100 );
+                editStatement.setText("Your Total Monthly Payment: " + p);
 
 
 
+            }
+        });
+
+
+
+    }
+
+    private void initToggleButton1() {
+        ToggleButton toggleButton1 = findViewById(R.id.toggleButton1);
+        toggleButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+            }
+        });
+
+
+    }
+
+
+}
